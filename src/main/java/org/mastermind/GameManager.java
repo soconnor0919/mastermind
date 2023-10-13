@@ -16,7 +16,7 @@
  * and asks user about following retries.
  * ****************************************
  */
-package mastermind;
+package org.mastermind;
 
 import java.util.Scanner;
 

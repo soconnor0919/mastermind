@@ -12,19 +12,28 @@
  * Class: Board
  *
  * Description:
- *
+ * Handles main game logic, and runs the game
+ * itself.
  * ****************************************
  */
-package mastermind;
+package org.mastermind;
 
 public class Board {
     /** Stores amount of guesses made, and the amount remaining */
     private int maxGuesses, guessCount;
 
+    /** Integer array used to store each guess as individual elements */
     private int[] guess;
 
+    /** CodeMaker object to be used throughout the game */
     private final CodeMaker cm;
 
+    /**
+     * Initializes a new board, with zero guesses.
+     * @param codeMaker CodeMaker object used throughout
+     * @param totalGuesses maximum number of guesses before
+     *                     result is revealed
+     */
     public Board(CodeMaker codeMaker, int totalGuesses) {
         this.cm = codeMaker;
         this.maxGuesses = totalGuesses;
@@ -32,14 +41,28 @@ public class Board {
 
     }
 
+    /**
+     * Main game logic
+     * Creates a new code to guess, then while eligible to
+     * guess, prompts the user to enter a guess. Guess is then
+     * checked by the CodeMaker, and results are reported.
+     */
     public void runGame() {
         cm.generateNewCode();
 
         while (getGuessesRemaining() > 0) {
             guess = promptForGuess();
+            String result = cm.checkGuess(guess);
+            System.out.println(formatResults(guess, result));
         }
     }
 
+    /**
+     * Prompts the user to guess a String of x numbers, with
+     * lower and upper bounds. Retries until a valid guess is
+     * entered.
+     * @return result- an integer array containing each individual digit
+     */
     public int[] promptForGuess() {
         guessCount++;
         int[] result = null;
@@ -63,7 +86,7 @@ public class Board {
     }
 
     /**
-     *
+     * Converts a string to an array of individual integers
      * @param str
      * @return
      */
@@ -77,6 +100,13 @@ public class Board {
         return result;
     }
 
+    /**
+     * Checks if a String containing digits is within set bounds
+     * @param str String to check
+     * @param lowerBound minimum possible digit
+     * @param upperBound maximum possible digit
+     * @return result
+     */
     private boolean digitsWithinBounds(String str, int lowerBound, int upperBound) {
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c) || c < (char) (lowerBound + '0') || c > (char) (upperBound + '0')) {
@@ -86,8 +116,31 @@ public class Board {
         return true;
     }
 
+    private String formatResults(int[] guess, String result) {
+        String formattedResult = "";
+
+        for (int i = 0; i < guess.length; i++) {
+            formattedResult += guess[i];
+        }
+
+        formattedResult += " --> ";
+
+        formattedResult += result;
+
+        formattedResult += "    ";
+
+        if (getGuessesRemaining() > 0) {
+            formattedResult += "Try again you have " + getGuessesRemaining() + " guesses left";
+        } else {
+            formattedResult = formattedResult + "YOU LOST! The code was " + cm.revealAnswer();
+        }
+
+
+        return formattedResult;
+    }
+
     /**
-     * Returns remaining amount of guesses available to the user.
+     * Returns the remaining number of guesses available to the user.
      * @return guessesRemaining
      */
     private int getGuessesRemaining() {
