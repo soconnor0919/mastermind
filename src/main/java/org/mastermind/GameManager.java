@@ -24,14 +24,14 @@ public class GameManager {
     /** Maximum length of code to generate/guess */
     public static final int CODE_LENGTH = 4;
 
-    /** Smallest number that one can guess */
+    /** The smallest number that one can guess */
     public static final int LOWER_BOUND = 1;
 
-    /** Largest number that one can guess */
+    /** The largest number that one can guess */
     public static final int UPPER_BOUND = 6;
 
-    /** Amount of possible guesses */
-    public static final int MAX_GUESSES = 2;
+    /** Number of possible guesses */
+    public static final int MAX_GUESSES = 12;
 
     /** State boolean confirming game should be in progress */
     public static boolean done = false;
@@ -63,8 +63,8 @@ public class GameManager {
     }
 
     /**
-     * Sets up new game-
-     * Instantiates new Board and CodeMaker objects, then greets
+     * Sets up a new game, instantiates new Board
+     * and CodeMaker objects, then greets
      * user with instructions and bounds.
      */
     public static void setUpGame() {

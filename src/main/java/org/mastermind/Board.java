@@ -19,7 +19,7 @@
 package org.mastermind;
 
 public class Board {
-    /** Stores amount of guesses made, and the amount remaining */
+    /** Stores number of guesses made, and the amount remaining */
     private int maxGuesses, guessCount;
 
     /** Integer array used to store each guess as individual elements */
@@ -50,7 +50,7 @@ public class Board {
     public void runGame() {
         cm.generateNewCode();
 
-        while (getGuessesRemaining() > 0) {
+        while (!cm.gameWon() && getGuessesRemaining() > 0) {
             guess = promptForGuess();
             String result = cm.checkGuess(guess);
             System.out.println(formatResults(guess, result));
@@ -129,10 +129,12 @@ public class Board {
 
         formattedResult += "    ";
 
-        if (getGuessesRemaining() > 0) {
-            formattedResult += "Try again you have " + getGuessesRemaining() + " guesses left";
+        if (cm.gameWon()) {
+            formattedResult += "YOU WON! You guessed the code in " + getGuessCount() + " moves!";
+        } else if (getGuessesRemaining() > 0) {
+            formattedResult += "Try again. " + getGuessesRemaining() + " guesses left.";
         } else {
-            formattedResult = formattedResult + "YOU LOST! The code was " + cm.revealAnswer();
+            formattedResult = formattedResult + "YOU LOST! The code was " + cm.revealAnswer() + ".";
         }
 
 
@@ -145,5 +147,13 @@ public class Board {
      */
     private int getGuessesRemaining() {
         return maxGuesses - guessCount;
+    }
+
+    /**
+     * Returns the number of guesses made.
+     * @return guessCount
+     */
+    private int getGuessCount() {
+        return guessCount;
     }
 }

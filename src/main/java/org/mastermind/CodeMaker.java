@@ -30,6 +30,9 @@ public class CodeMaker {
     /** integers storing code length, upper bound, and lower bound */
     private static int length, upperBound, lowerBound;
 
+    /** State boolean storing if code checked has matched. */
+    private static boolean matchFound;
+
     /**
      * CodeMaker Instance
      * Takes in length and bounds, then instantiates a
@@ -40,6 +43,7 @@ public class CodeMaker {
         length = len;
         lowerBound = lBound;
         upperBound = uBound;
+        matchFound = false;
         gameCode = new int[length];
     }
 
@@ -48,7 +52,7 @@ public class CodeMaker {
      * given at initialization.
      */
     public void generateNewCode() {
-        for (int i = 0; i < length - 1; i++) {
+        for (int i = 0; i < length; i++) {
             gameCode[i] = random.nextInt(upperBound - lowerBound + 1) + lowerBound;
         }
     }
@@ -99,12 +103,16 @@ public class CodeMaker {
         }
 
         // Fill in the rest
-//        if (result.length() < length) {
         int remainingChars = length - result.length();
         for (int i = 0; i < remainingChars; i++) {
             result += "-";
         }
-//        }
+
+        // Check if perfect match was found
+        if (result.equals("****")) {
+            matchFound = true;
+        }
+
         return result;
     }
 
@@ -130,5 +138,13 @@ public class CodeMaker {
             result += gameCode[i];
         }
         return result;
+    }
+
+    /**
+     * Returns true if match was found,
+     * otherwise false.
+     */
+    public boolean gameWon() {
+        return matchFound;
     }
 }
