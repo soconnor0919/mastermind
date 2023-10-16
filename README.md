@@ -2,7 +2,7 @@
 Bucknell University
 Lewisburg, PA
 ### Course Info
-Instructor: Brian Kind
+Instructor: Brian King
 Semester: Fall 2023
 ## Team Information
 Lyman Brackett: Sophomore Comp. Sci. Engineering Major. Will hit and chase white ball around field for hours.
