@@ -70,4 +70,65 @@ public class CodeMaker {
     public int getUpperBound() {
         return upperBound;
     }
+
+    /**
+     * Returns a string containing pluses, minuses and
+     * stars representing the guesses' accuracy.
+     * @param guess integer array containing a guess
+     * @return string containing result
+     */
+    public String checkGuess(int[] guess){
+        String result = "";
+        int[] directMatches = new int[length];
+
+        // Check for direct matches
+        for (int i = 0; i < gameCode.length; i++){
+            if (gameCode[i] == guess[i]){
+                result += "*";
+                directMatches[i] = 1;
+            }
+        }
+
+        // Check for close matches
+        for (int i =0; i < length; i++){
+                if (directMatches[i] != 1){
+                    if (intArrayContains(guess[i], gameCode)){
+                        result += "+";
+                    }
+                }
+        }
+
+        // Fill in the rest
+//        if (result.length() < length) {
+        int remainingChars = length - result.length();
+        for (int i = 0; i < remainingChars; i++) {
+            result += "-";
+        }
+//        }
+        return result;
+    }
+
+    /**
+     * Checks if a given integer is found within
+     * an array of integers
+     * @param intToCheckFor integer to check for
+     * @param arr array to check
+     * @return boolean containing result
+     */
+    public boolean intArrayContains(int intToCheckFor, int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == intToCheckFor) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String revealAnswer() {
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            result += gameCode[i];
+        }
+        return result;
+    }
 }
