@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class CodeMaker {
     /** Integer array storing each digit */
-    private final int[] gameCode;
+    final int[] gameCode;
 
     /** Random object used to generate numbers */
     private final Random random;
@@ -37,6 +37,7 @@ public class CodeMaker {
      * CodeMaker Instance
      * Takes in length and bounds, then instantiates a
      * new array to store the game code.
+     * @author sso005
      */
     public CodeMaker(int len, int lBound, int uBound) {
         random = new Random();
@@ -50,6 +51,7 @@ public class CodeMaker {
     /**
      * Generates a new game code using the constraints
      * given at initialization.
+     * @author sso005 & lmb042
      */
     public void generateNewCode() {
         for (int i = 0; i < length; i++) {
@@ -61,6 +63,7 @@ public class CodeMaker {
      * Returns the smallest valid digit
      * of a possible code.
      * @return lowerBound
+     * @author sso005
      */
     public int getLowerBound() {
         return lowerBound;
@@ -70,6 +73,7 @@ public class CodeMaker {
      * Returns the largest valid digit
      * of a possible code.
      * @return upperBound
+     * @author sso005
      */
     public int getUpperBound() {
         return upperBound;
@@ -80,6 +84,7 @@ public class CodeMaker {
      * stars representing the guesses' accuracy.
      * @param guess integer array containing a guess
      * @return string containing result
+     * @author sso005 & lmb042
      */
     public String checkGuess(int[] guess){
         String result = "";
@@ -122,6 +127,7 @@ public class CodeMaker {
      * @param intToCheckFor integer to check for
      * @param arr array to check
      * @return boolean containing result
+     * @author sso005 & lmb042
      */
     public boolean intArrayContains(int intToCheckFor, int[] arr) {
         for (int i = 0; i < arr.length; i++) {
@@ -132,6 +138,13 @@ public class CodeMaker {
         return false;
     }
 
+    /**
+     * Reveals the code to the user in the
+     * form of a string
+     * @return A string containing the n digits
+     * of the code.
+     * @author lmb042
+     */
     public String revealAnswer() {
         String result = "";
         for (int i = 0; i < length; i++) {
@@ -143,6 +156,7 @@ public class CodeMaker {
     /**
      * Returns true if match was found,
      * otherwise false.
+     * @author lmb042
      */
     public boolean gameWon() {
         return matchFound;

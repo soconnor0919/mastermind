@@ -33,6 +33,7 @@ public class Board {
      * @param codeMaker CodeMaker object used throughout
      * @param totalGuesses maximum number of guesses before
      *                     result is revealed
+     * @author sso005 & lmb042
      */
     public Board(CodeMaker codeMaker, int totalGuesses) {
         this.cm = codeMaker;
@@ -46,6 +47,7 @@ public class Board {
      * Creates a new code to guess, then while eligible to
      * guess, prompts the user to enter a guess. Guess is then
      * checked by the CodeMaker, and results are reported.
+     * @author sso005
      */
     public void runGame() {
         cm.generateNewCode();
@@ -87,10 +89,11 @@ public class Board {
 
     /**
      * Converts a string to an array of individual integers
-     * @param str
-     * @return
+     * @param str A string containing n integers
+     * @return An array containing n individual integers
+     * @author sso005 & lmb042
      */
-    private int[] stringToIntArray(String str) {
+    int[] stringToIntArray(String str) {
         char digitChar;
         int[] result = new int[GameManager.CODE_LENGTH];
         for (int i = 0; i < GameManager.CODE_LENGTH; i++) {
@@ -105,9 +108,10 @@ public class Board {
      * @param str String to check
      * @param lowerBound minimum possible digit
      * @param upperBound maximum possible digit
-     * @return result
+     * @return true if digits are within bounds
+     * @author sso005
      */
-    private boolean digitsWithinBounds(String str, int lowerBound, int upperBound) {
+    boolean digitsWithinBounds(String str, int lowerBound, int upperBound) {
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c) || c < (char) (lowerBound + '0') || c > (char) (upperBound + '0')) {
                 return false;
@@ -116,7 +120,18 @@ public class Board {
         return true;
     }
 
-    private String formatResults(int[] guess, String result) {
+    /**
+     * Takes in a guess and a known result, then formats for
+     * user output.
+     * @param guess A string containing the user's guess
+     * @param result A string containing the stars, pluses
+     *               and minuses representing the guesses'
+     *               result.
+     * @return A string containing the guess, result, and
+     * information about the rest of the game's state.
+     * @author sso005 & lmb042
+     */
+    String formatResults(int[] guess, String result) {
         String formattedResult = "";
 
         for (int i = 0; i < guess.length; i++) {
@@ -144,6 +159,7 @@ public class Board {
     /**
      * Returns the remaining number of guesses available to the user.
      * @return guessesRemaining
+     * @author lmb042
      */
     private int getGuessesRemaining() {
         return maxGuesses - guessCount;
@@ -152,6 +168,7 @@ public class Board {
     /**
      * Returns the number of guesses made.
      * @return guessCount
+     * @author lmb042
      */
     private int getGuessCount() {
         return guessCount;
