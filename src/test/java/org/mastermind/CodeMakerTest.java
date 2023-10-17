@@ -1,9 +1,31 @@
+/* *****************************************
+ * CSCI 205 - Software Engineering and Design
+ * Fall 2023
+ * Instructor: Prof. Brian King
+ *
+ * Name: Sean O'Connor and Lyman Brackett
+ * Section: 09:00
+ * Date: 10/12/23
+ *
+ * Project: csci205_hw
+ * Package: mastermind
+ * Class: CodeMakerTest
+ *
+ * Description:
+ * Tests the important functions of the
+ * CodeMaker class.
+ * ****************************************
+ */
+
 package org.mastermind;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * A set of tests for the CodeMaker class.
+ */
 public class CodeMakerTest {
     private CodeMaker codeMaker;
 
@@ -15,6 +37,7 @@ public class CodeMakerTest {
     /**
      * tests generateNewCode which is important b/c
      * we create semi-unique new games with it
+     * @author lmb042
      */
     @Test
     public void testGenerateNewCode() {
@@ -31,6 +54,7 @@ public class CodeMakerTest {
      * tests checkGuess method which is
      * important b/c it creates the series of
      * +, -, * that guide the user through the game
+     * @author lmb042
      */
     @Test
     public void testCheckGuess() {
@@ -47,8 +71,7 @@ public class CodeMakerTest {
             }
         }
 
-        int[] guess1 = gameCode;
-        assertEquals("****", codeMaker.checkGuess(guess1));
+        assertEquals("****", codeMaker.checkGuess(gameCode));
 
         int[] guess2 = {gameCode[0], gameCode[1], notUsed, notUsed};
         assertEquals("**--", codeMaker.checkGuess(guess2));
@@ -57,6 +80,7 @@ public class CodeMakerTest {
     /**
      * tests intArrayContains which is important
      * b/c we use it in our checkGuess method
+     * @author lmb042
      */
     @Test
     public void testIntArrayContains() {

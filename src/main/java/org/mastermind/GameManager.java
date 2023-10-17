@@ -49,6 +49,7 @@ public class GameManager {
      * Main game run logic-
      * Creates a new terminal scanner, then sets up a game and runs it.
      * After the game ends, GameManager prompts user for retry.
+     * @author sso005
      * */
     public static void main(String[] args) {
         scnr = new Scanner(System.in);
@@ -66,6 +67,7 @@ public class GameManager {
      * Sets up a new game, instantiates new Board
      * and CodeMaker objects, then greets
      * user with instructions and bounds.
+     * @author lmb042
      */
     public static void setUpGame() {
         // Create new CodeMaker and Board instances
@@ -78,6 +80,7 @@ public class GameManager {
     /**
      * Asks user if they want to play again.
      * Sanitizes / checks for bad input and re-prompts if necessary.
+     * @author sso005 & lmb042
      */
     public static void promptForRetry() {
         // Clear the input buffer

@@ -1,14 +1,32 @@
+/* *****************************************
+ * CSCI 205 - Software Engineering and Design
+ * Fall 2023
+ * Instructor: Prof. Brian King
+ *
+ * Name: Sean O'Connor and Lyman Brackett
+ * Section: 09:00
+ * Date: 10/12/23
+ *
+ * Project: csci205_hw
+ * Package: mastermind
+ * Class: BoardTest
+ *
+ * Description:
+ * Tests the important functions of the
+ * Board class.
+ * ****************************************
+ */
 package org.mastermind;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * A set of tests for the Board class.
+ * @author lmb042
+ */
 public class BoardTest {
     private CodeMaker codeMaker;
     private Board board;
@@ -22,6 +40,7 @@ public class BoardTest {
     /**
      * tests stringToInt Array method
      * which is important b/c we use it to process input
+     * @author lmb042
      */
     @Test
     public void testStringToIntArray() {
@@ -38,6 +57,7 @@ public class BoardTest {
     /**
      * tests digitsWithinBounds method because
      * we use that to error check input
+     * @author lmb042
      */
     @Test
     public void testDigitsWithinBounds() {
