@@ -90,7 +90,7 @@ public class Board {
      * @param str
      * @return
      */
-    private int[] stringToIntArray(String str) {
+    int[] stringToIntArray(String str) {
         char digitChar;
         int[] result = new int[GameManager.CODE_LENGTH];
         for (int i = 0; i < GameManager.CODE_LENGTH; i++) {
@@ -107,7 +107,7 @@ public class Board {
      * @param upperBound maximum possible digit
      * @return result
      */
-    private boolean digitsWithinBounds(String str, int lowerBound, int upperBound) {
+    boolean digitsWithinBounds(String str, int lowerBound, int upperBound) {
         for (char c : str.toCharArray()) {
             if (!Character.isDigit(c) || c < (char) (lowerBound + '0') || c > (char) (upperBound + '0')) {
                 return false;
@@ -116,7 +116,7 @@ public class Board {
         return true;
     }
 
-    private String formatResults(int[] guess, String result) {
+    String formatResults(int[] guess, String result) {
         String formattedResult = "";
 
         for (int i = 0; i < guess.length; i++) {

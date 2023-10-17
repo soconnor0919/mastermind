@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class CodeMaker {
     /** Integer array storing each digit */
-    private final int[] gameCode;
+    final int[] gameCode;
 
     /** Random object used to generate numbers */
     private final Random random;
