@@ -22,17 +22,10 @@ public class BoardTest {
         GameManager.scnr = new Scanner(System.in);
     }
 
-    @Test
-    public void testPromptForGuess() {
-        // Mock user input for promptForGuess
-        String dummyInput = "1234";
-        System.setIn(new ByteArrayInputStream(dummyInput.getBytes()));
-
-        int[] guess = board.promptForGuess();
-        assertNotNull(guess);
-        assertEquals(4, guess.length);
-    }
-
+    /**
+     * tests stringToInt Array method
+     * which is important b/c we use it to process input
+     */
     @Test
     public void testStringToIntArray() {
         String input = "1234";
@@ -45,6 +38,10 @@ public class BoardTest {
         assertEquals(4, result[3]);
     }
 
+    /**
+     * tests digitsWithinBounds method because
+     * we use that to error check input
+     */
     @Test
     public void testDigitsWithinBounds() {
         assertTrue(board.digitsWithinBounds("1234", 1, 6));

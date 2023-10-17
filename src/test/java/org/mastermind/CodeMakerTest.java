@@ -12,6 +12,10 @@ public class CodeMakerTest {
         codeMaker = new CodeMaker(4, 1, 6); // Example values for length, lowerBound, and upperBound
     }
 
+    /**
+     * tests generateNewCode which is important b/c
+     * we create semi-unique new games with it
+     */
     @Test
     public void testGenerateNewCode() {
         codeMaker.generateNewCode();
@@ -23,6 +27,11 @@ public class CodeMakerTest {
         }
     }
 
+    /**
+     * tests checkGuess method which is
+     * important b/c it creates the series of
+     * +, -, * that guide the user through the game
+     */
     @Test
     public void testCheckGuess() {
         int[] gameCode = codeMaker.gameCode;
@@ -45,6 +54,10 @@ public class CodeMakerTest {
         assertEquals("**--", codeMaker.checkGuess(guess2));
     }
 
+    /**
+     * tests intArrayContains which is important
+     * b/c we use it in our checkGuess method
+     */
     @Test
     public void testIntArrayContains() {
         int[] arr = {1, 2, 3, 4};
