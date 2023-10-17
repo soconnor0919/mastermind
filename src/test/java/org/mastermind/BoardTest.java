@@ -15,11 +15,8 @@ public class BoardTest {
 
     @BeforeEach
     public void setUp() {
-        codeMaker = new CodeMaker(4, 1, 6); // Example values for length, lowerBound, and upperBound
-        board = new Board(codeMaker, 1); // Example value for totalGuesses
-
-        // Mock GameManager.scnr for promptForGuess method
-        GameManager.scnr = new Scanner(System.in);
+        codeMaker = new CodeMaker(4, 1, 6);
+        board = new Board(codeMaker, 1);
     }
 
     /**
