@@ -18,6 +18,7 @@
  */
 package org.mastermind;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameManager {
@@ -33,10 +34,7 @@ public class GameManager {
     /** Number of possible guesses */
     public static final int MAX_GUESSES = 12;
 
-    /** Number of games for solver methods */
-    public static final int GAME_NUM = 1000;
-
-    /** Instance variable for amount of games */
+    /** Instance variable for number of games */
     public static int gameNum;
 
     /** State boolean confirming game should be in progress */
@@ -58,7 +56,12 @@ public class GameManager {
     public static GameMode gameMode;
 
     /** Total time running (for stats) */
-    private static double totalTime;
+    public static long totalTime;
+
+    /** ArrayList containing amounts of turns */
+    public static ArrayList<Integer> turnCounts;
+
+
 
     /**
      * Main game run logic-
@@ -68,13 +71,14 @@ public class GameManager {
      * */
     public static void main(String[] args) {
         scnr = new Scanner(System.in);
-        gameMode = promptForGameMode();
         totalTime = 0;
+        turnCounts = new ArrayList<>();
+        gameMode = promptForGameMode();
 
         if (gameMode == GameMode.HUMAN_PLAYER) {
             gameNum = 1;
         } else {
-            gameNum = GAME_NUM;
+            gameNum = promptForIterations();
         }
 
         for (int i = 0; i < gameNum; i++) {
@@ -98,7 +102,12 @@ public class GameManager {
             codeMaker = new CodeMaker(CODE_LENGTH, LOWER_BOUND, UPPER_BOUND);
             board = new Board(codeMaker, codeBreaker);
             board.runGame();
-            totalTime += board.gameTime;
+            updateRunTime(board.getRunTime());
+            updateTurnCounts(codeBreaker.getGuessCount());
+        }
+
+        if (getGameMode() != GameMode.HUMAN_PLAYER) {
+            displayResults();
         }
 
         scnr.close();
@@ -146,10 +155,103 @@ public class GameManager {
     }
 
     /**
+     * Asks user how many iterations to run.
+     * @author sso005 & lmb042
+     */
+    private static int promptForIterations() {
+        boolean isDone = false;
+        int result = 1;
+        while (!isDone) {
+            System.out.print("How many iterations would you like to run? ");
+            String sResult = scnr.nextLine().strip();
+            if (sResult.matches("[0-9]+")) {
+                result = Integer.parseInt(sResult);
+                isDone = true;
+            } else {
+                System.out.print("Invalid input. ");
+            }
+        }
+        return result;
+    }
+
+    /**
      * Returns user-provided GameMode
      * @return gameMode
+     * @author sso005
      */
     private static GameMode getGameMode() {
         return gameMode;
+    }
+
+    /**
+     * Update's game's runtime
+     */
+    private static void updateRunTime(long time) {
+        totalTime += time;
+    }
+
+    /**
+     * Returns total time in seconds.
+     * @author lmb042
+     */
+    private static double getTotalTime() {
+        return (double)totalTime / 1000000000;
+    }
+
+    /**
+     * Updates stored turn count based on
+     * a game's values.
+     * @author sso005
+     */
+    private static void updateTurnCounts(int turnCount) {
+        turnCounts.add(turnCount);
+    }
+
+    /**
+     * Calculates and returns the number of
+     * turns that the game with the maximum
+     * number of turns took.
+     * @return maxTurns
+     * @author sso005
+     */
+    private static int getMaxTurns() {
+        int maxTurns = 0;
+        for (int turns : turnCounts) {
+            if (turns > maxTurns) {
+                maxTurns = turns;
+            }
+        }
+        return maxTurns;
+    }
+
+    /**
+     * Calculates and returns the number of
+     * turns that the game with the minimum
+     * number of turns took.
+     * @return minTurns
+     * @author sso005
+     */
+    private static int getMinTurns() {
+        int minTurns = 10000000;
+        for (int turns : turnCounts) {
+            if (turns < minTurns) {
+                minTurns = turns;
+            }
+        }
+        return minTurns;
+    }
+
+    /**
+     * Displays statistics for solver methods.
+     */
+    private static void displayResults() {
+        System.out.println("RESULTS:");
+        System.out.println(getGameMode().getName() + " - Statistics:");
+        System.out.println("Number of games: " + gameNum);
+        System.out.printf("Average: %.1f turns%n", getTotalTime());
+        System.out.println("Shortest: " + getMinTurns() + " turns");
+        System.out.println("Longest: " + getMaxTurns() + " turns");
+        System.out.printf("TOTAL TIME: %.2f seconds%n", getTotalTime());
+        System.out.println("Goodbye!");
     }
 }

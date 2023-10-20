@@ -31,11 +31,11 @@ public class Board {
     /** CodeBreaker object to be used throughout the game */
     private final CodeBreakerInterface cb;
 
-    /** Total time in seconds of game */
-    public double gameTime;
-
     /** Stores guess result */
     String result;
+
+    /** Stores runtime */
+    long runTime, startTime;
 
     /**
      * Initializes a new board, with zero guesses.
@@ -58,25 +58,35 @@ public class Board {
      */
     public void runGame() {
         cm.generateNewCode();
-        long startTime = System.nanoTime();
+        startTime = System.nanoTime();
         while (!cm.gameWon() && cb.hasRemainingGuesses()) {
             guess = cb.getGuess();
             result = cm.checkGuess(guess);
             cb.receiveResult(result);
         }
-        long endTime = System.nanoTime();
-        this.gameTime = ((double) endTime - (double) startTime)/1000000;
-//        endGame();
+        endGame();
     }
 
+    /**
+     * Cleans up board after game ends
+     * @author sso005@ lmb042
+     */
     private void endGame() {
+        runTime = System.nanoTime() - startTime;
         if (cb.getClass() == HumanPlayer.class) {
-            System.out.println("GAME OVER! RESULTS:");
-
-        } else {
-            System.out.println("RESULTS:");
-            System.out.println(cb.getClass().getName() + " - Statistics:");
-
+            if (!cm.gameWon()) {
+                System.out.println("The code was " + cm.revealAnswer() + ".");
+            } else {
+                System.out.println("CONGRATULATIONS! \uD83C\uDF89");
+            }
         }
+    }
+
+    /**
+     * Returns specified game's run time.
+     * @return long runTime
+     */
+    public long getRunTime() {
+        return this.runTime;
     }
 }
