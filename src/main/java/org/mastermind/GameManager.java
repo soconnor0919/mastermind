@@ -242,13 +242,30 @@ public class GameManager {
     }
 
     /**
+     * Returns the average number of turns
+     * from the arraylist.
+     * @return avgTurns
+     * @author sso005
+     */
+    private static double getAvgTurns() {
+        int sum = 0;
+        int count = 0;
+        for (int turns : turnCounts) {
+            sum += turns;
+            count++;
+        }
+        return (double)sum/(double)count;
+    }
+
+
+    /**
      * Displays statistics for solver methods.
      */
     private static void displayResults() {
         System.out.println("RESULTS:");
         System.out.println(getGameMode().getName() + " - Statistics:");
         System.out.println("Number of games: " + gameNum);
-        System.out.printf("Average: %.1f turns%n", getTotalTime());
+        System.out.printf("Average: %.1f turns%n", getAvgTurns());
         System.out.println("Shortest: " + getMinTurns() + " turns");
         System.out.println("Longest: " + getMaxTurns() + " turns");
         System.out.printf("TOTAL TIME: %.2f seconds%n", getTotalTime());
