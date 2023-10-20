@@ -51,7 +51,8 @@ public class RandomPlayer implements CodeBreakerInterface {
 
     /**
      * gets random guess
-     * @return {@link #guess}. which is an int[] object
+     * @return guess. which is an int[] object
+     * @author lmb042
      */
     @Override
     public int[] getGuess() {
@@ -69,6 +70,7 @@ public class RandomPlayer implements CodeBreakerInterface {
      * really need to recieve a result
      * @param result a string containing
      *               result symbols.
+     * @author lmb042
      */
     @Override
     public void receiveResult(String result) {
@@ -78,6 +80,7 @@ public class RandomPlayer implements CodeBreakerInterface {
     /**
      * Function to show total guesses
      * @return {@link #totalGuesses}
+     * @author lmb042
      */
     @Override
     public int getGuessCount(){

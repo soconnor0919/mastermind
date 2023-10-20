@@ -61,8 +61,6 @@ public class GameManager {
     /** ArrayList containing amounts of turns */
     public static ArrayList<Integer> turnCounts;
 
-
-
     /**
      * Main game run logic-
      * Creates a new terminal scanner, then sets up a game and runs it.
@@ -89,8 +87,8 @@ public class GameManager {
                 case MINIMAX_SOLVER:
                     //MiniMaxPlayer cb = new MiniMaxPlayer();
                     break;
-                case EXTRA_SOLVER:
-                    //codeBreaker = new RandomPlayer();
+                case BRUTEFORCE_SOLVER:
+                    codeBreaker = new BruteForcePlayer();
                     break;
                 case HUMAN_PLAYER:
                 default:
@@ -140,11 +138,11 @@ public class GameManager {
      */
     private static GameMode promptForSolverType() {
         GameMode gm = GameMode.RANDOM_SOLVER;
-        System.out.print("Random solver, MiniMax solver, or Untitled solver? [R|M|U]: ");
+        System.out.print("Random solver, MiniMax solver, or BruteForce solver? [R|M|B]: ");
         String sResult = scnr.nextLine().strip();
-        if (sResult.matches("[rRmMuU]")) {
-            if (sResult.matches("[uU]")) {
-                gm = GameMode.EXTRA_SOLVER;
+        if (sResult.matches("[rRmMbB]")) {
+            if (sResult.matches("[bB]")) {
+                gm = GameMode.BRUTEFORCE_SOLVER;
             } else if (sResult.matches("[mM]")){
                 gm = GameMode.MINIMAX_SOLVER;
             }
