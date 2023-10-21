@@ -26,7 +26,7 @@ public enum GameMode {
     HUMAN_PLAYER("HumanPlayer"),
     RANDOM_SOLVER("RandomSolver"),
     MINIMAX_SOLVER("MiniMaxSolver"),
-    EXTRA_SOLVER("ExtraSolver");
+    BRUTEFORCE_SOLVER("BruteForceSolver");
 
     /** Name of gameMode */
     String name;
