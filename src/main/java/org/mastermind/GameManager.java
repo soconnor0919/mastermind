@@ -87,7 +87,7 @@ public class GameManager {
                     codeBreaker = new RandomPlayer();
                     break;
                 case MINIMAX_SOLVER:
-                    //MiniMaxPlayer cb = new MiniMaxPlayer();
+                    codeBreaker = new MiniMaxPlayer();
                     break;
                 case EXTRA_SOLVER:
                     //codeBreaker = new RandomPlayer();
