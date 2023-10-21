@@ -25,23 +25,22 @@ public class MiniMaxPlayer implements CodeBreakerInterface {
     /** list of possible answers */
     private List<int[]> possible = new ArrayList<>();
 
+    /** lastGuess made by MiniMaxPlayer */
     private int[] lastGuess;
 
+    /** total guesses made by MiniMaxPlayer */
     private int guessCount = 0;
 
     /**
      * sets up all possible guesses
+     * @author lmb042
      */
-    public void main(){
-        int[] tempNum = new int[4];
+    public MiniMaxPlayer(){
         for (int thousand = GameManager.LOWER_BOUND; thousand < GameManager.UPPER_BOUND + 1; thousand++){
-            tempNum[0] = thousand;
             for (int hundred = GameManager.LOWER_BOUND; hundred < GameManager.UPPER_BOUND + 1; hundred++){
-                tempNum[1] = hundred;
                 for (int ten = GameManager.LOWER_BOUND; ten < GameManager.UPPER_BOUND + 1; ten++) {
-                    tempNum[2] = ten;
                     for (int one = GameManager.LOWER_BOUND; one < GameManager.UPPER_BOUND + 1; one++) {
-                        tempNum[3] = one;
+                        int[] tempNum = {thousand, hundred, ten, one};
                         possible.add(tempNum);
                     }
                 }
@@ -49,32 +48,63 @@ public class MiniMaxPlayer implements CodeBreakerInterface {
         }
     }
 
+    /**
+     * Takes guess from list of possible guesses
+     * @return int[] with digits representing guess
+     * @author lmb042
+     */
     @Override
     public int[] getGuess(){
-        lastGuess = possible.get(0);
-        possible.remove(0);
+        if (guessCount == 0){
+            lastGuess = possible.get(7);
+            possible.remove(7);
+        }
+        else {
+            lastGuess = possible.get(0);
+            possible.remove(0);
+        }
         guessCount += 1;
         return lastGuess;
     }
 
+    /**
+     *
+     * @return {@link #guessCount}
+     * @author lmb042
+     */
     @Override
     public int getGuessCount() {
         return guessCount;
     }
 
+    /**
+     * takes in answer and deletes codes from {@link #possible} that are now
+     * impossible given new information
+     * @param answer a string containing
+     *               result symbols.
+     * @author lmb042
+     */
+    @Override
     public void receiveResult(String answer){
         if (answer.contains("+") || answer.contains("*")){
             for (int t = 0; t < possible.size(); t++){
-                for (int i = 0; i < GameManager.CODE_LENGTH; i++){
-                    if (!intArrayContains(lastGuess[i], possible.get(t))){
-                        possible.remove(t);
-                        break;
-                    }
+                if (!intArrayContains(lastGuess[0], possible.get(t)) && !intArrayContains(lastGuess[1], possible.get(t)) && !intArrayContains(lastGuess[2], possible.get(t)) && !intArrayContains(lastGuess[3], possible.get(t))) {
+                    possible.remove(t);
+                    break;
                 }
+
             }
         }
     }
 
+    /**
+     * Checks if a given integer is found within
+     * an array of integers
+     * @param intToCheckFor integer to check for
+     * @param arr array to check
+     * @return boolean containing result
+     * @author sso005 & lmb042
+     */
     public boolean intArrayContains(int intToCheckFor, int[] arr) {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == intToCheckFor) {
