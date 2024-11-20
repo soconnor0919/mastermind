@@ -38,7 +38,7 @@ dependencies {
 
 application {
     mainModule = "csci205_hw"
-    mainClassName = "org.mastermind.Main"
+    mainClassName = "org.mastermind.GameManager"
 
     if (project.hasProperty("mainClass")) {
         getMainClass().set(project.getProperty("mainClass"))
